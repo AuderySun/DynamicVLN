@@ -7,15 +7,36 @@ def visualize_route_in_carla(world, route, life_time=1.0):
     for i in range(len(route) - 1):
         wp_start = route[i]
         wp_end = route[i + 1]
-        # Draw a line between waypoints
-        world.debug.draw_line(wp_start.transform.location, wp_end.transform.location,
-                              thickness=0.1, color=carla.Color(0, 255, 0), life_time=life_time)
-        # Draw waypoints
-        world.debug.draw_point(wp_start.transform.location, size=0.1,
-                               color=carla.Color(255, 0, 0), life_time=life_time)
-    # Draw the last waypoint
-    world.debug.draw_point(route[-1].transform.location, size=0.1,
-                           color=carla.Color(255, 0, 0), life_time=life_time)
+        # 绘制绿色的线条，添加 alpha=255
+        world.debug.draw_line(
+            wp_start.transform.location,
+            wp_end.transform.location,
+            thickness=0.1,
+            color=carla.Color(60, 179, 113, 255),
+            life_time=life_time
+        )
+        # 绘制红色的点，添加 alpha=255
+        world.debug.draw_point(
+            wp_start.transform.location,
+            size=0.1,
+            color=carla.Color(255, 0, 0, 255),
+            life_time=life_time
+        )
+    # 绘制起点（黄橙色），添加 alpha=255
+    world.debug.draw_point(
+        route[0].transform.location,
+        size=0.2,
+        color=carla.Color(255, 204, 0, 255),
+        life_time=life_time
+    )
+    # 绘制终点（蓝色），添加 alpha=255
+    world.debug.draw_point(
+        route[-1].transform.location,
+        size=0.2,
+        color=carla.Color(0, 128, 255, 255),
+        life_time=life_time
+    )
+
 
 
 def calculate_overhead_camera_transform(route):
